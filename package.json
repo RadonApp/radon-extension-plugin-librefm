@@ -1,0 +1,49 @@
+{
+  "name": "neon-extension-destination-librefm",
+  "version": "1.6.0",
+  "description": "Neon Extension: Libre.fm",
+  "keywords": [
+    "neon",
+    "neon-extension",
+    "librefm"
+  ],
+  "homepage": "https://github.com/NeApp/neon-extension",
+  "author": "Dean Gardiner <me@dgardiner.net>",
+  "license": "GPL-3.0",
+  "main": "./src",
+  "bugs": {
+    "url": "https://github.com/NeApp/neon-extension/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NeApp/neon-extension-destination-librefm"
+  },
+  "scripts": {
+    "test": "echo No tests available yet."
+  },
+  "dependencies": {
+    "@fuzeman/librefm": "1.1.0-alpha.1",
+    "crypto-js": "3.1.6"
+  },
+  "devDependencies": {
+    "@babel/core": "7.0.0-beta.32",
+    "@babel/plugin-proposal-class-properties": "7.0.0-beta.32",
+    "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.32",
+    "@babel/preset-env": "7.0.0-beta.32",
+    "@babel/preset-react": "7.0.0-beta.32",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^8.0.0-beta.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "eslint": "^3.7.0",
+    "eslint-loader": "^1.5.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-react": "^6.3.0"
+  },
+  "peerDependencies": {
+    "lodash-es": "^4.16.1",
+    "neon-extension-framework": "^1.6.0",
+    "querystring-es3": "^0.2.1",
+    "uuid": "^2.0.3"
+  }
+}

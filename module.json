@@ -1,0 +1,27 @@
+{
+  "title": "Libre.fm",
+
+  "origins": [
+    "*://libre.fm/*"
+  ],
+
+  "services": [
+    "configuration",
+    "migrate",
+
+    "destination/scrobble",
+    "destination/sync"
+  ],
+  "web_accessible_resources": [
+    "destination/librefm/callback/callback.html"
+  ],
+
+  "webpack": {
+    "babel": [
+      "node_modules/@fuzeman/librefm/src"
+    ],
+    "chunks": [
+      "callback"
+    ]
+  }
+}

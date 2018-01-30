@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- '7'
+script:
+- npm run test
+deploy:
+  provider: npm
+  email: neapp-ci@me.dgardiner.net
+  api_key:
+    secure: HHd5ZpfvPfrfkjaf8peL7sqEe3MDeCJpHTRVDdFi4mJTxxxC/xIwBa1j6WouOuT+QTG0fw5p7YmhJacAKp7U/LrEwpZe/4C2gXL0ez2xYfxfpU/hoUVley8BHZywOQblwZQqj1IA1/p+lWxfb9wisXkRI7CT/NUt3RGmTLWUakqaqTtU4IxnoPY64V1P5pZYxWr4S30eGBRCukzMWHjp9vtCb9RIv6y1zzBRqg4P36hiQPgA3cAk9Sv2phoK08vFhd9H7uBWYTND9S9RQSHcTRSfTDUldK6CzzkFl76LhAxBIaG7ELermTMQOqo61SCAMvEh77xDAiS43f6keQKkB26L9cF3qNLfJkvSltKP4IDyPQglVxJ9KFFmug+eJZ8R54ttZxsbinK+B9srIidiUfzjZm9PsWu0UYkyo7XUlN7UG40C+/9Bv8uTQFQOKH0QTEb+SBqDA1kutm6mDfhBafZ/ONuZSlkwe0Q/Mt/68guOC6QCV2onA0W5vNxzPxJOorjcxVDEhGavj2l+huIaW8IoNrTlSowJfW/kxjZlgev47xEtwhxj7JoOC8DxUSOwkaeKQr9wX/HpLbIHVZKNdA1k0HZmps+bay2hG/4+IxidsujoMFbjPN9KX4+VH3C47vgwS+fvkPFYydxPM4ePBWHSk8bwtZvOw2jKyx77d4w=
+  on:
+    repo: NeApp/neon-extension-destination-librefm
+    tags: true
