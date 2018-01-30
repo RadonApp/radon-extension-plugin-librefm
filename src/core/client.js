@@ -4,8 +4,8 @@ import Plugin from './plugin';
 
 
 const Client = new LibreFM(
-    '2c794d3b3415a2fb072f41fc8a8edcc7',
-    '92a0a2adaf14f954e8d8999a9fb95524'
+    'qhSerf93lrPD2zRFeJDiZeIElFTV3RFp',
+    'fQZlhZleyl2E6BFLp3RP5668TalIhMnZ'
 );
 
 function configure() {
