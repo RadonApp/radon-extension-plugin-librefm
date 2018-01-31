@@ -22,7 +22,7 @@
     "test": "echo No tests available yet."
   },
   "dependencies": {
-    "@fuzeman/librefm": "1.0.0-alpha.1"
+    "@fuzeman/librefm": "1.0.0-beta.1"
   },
   "devDependencies": {
     "@babel/core": "7.0.0-beta.32",
