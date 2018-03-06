@@ -8,6 +8,7 @@ import {OptionComponent} from 'neon-extension-framework/services/configuration/c
 
 import Account from '../../../core/account';
 import Client from '../../../core/client';
+import Log from '../../../core/logger';
 import Plugin from '../../../core/plugin';
 import './authentication.scss';
 
@@ -75,7 +76,7 @@ export default class AuthenticationComponent extends OptionComponent {
 
     onCallback(query) {
         if(query.id !== this.callbackId) {
-            console.warn('Unable to authenticate with Libre.fm: Invalid callback id');
+            Log.warn('Unable to authenticate with Libre.fm: Invalid callback id');
 
             // Emit error event
             this.messaging.emit('error', {
@@ -100,7 +101,7 @@ export default class AuthenticationComponent extends OptionComponent {
                 });
 
         }, (error) => {
-            console.warn('Unable to authenticate with Libre.fm: %s', error.message);
+            Log.warn('Unable to authenticate with Libre.fm: %s', error.message);
 
             // Emit error event
             this.messaging.emit('error', {

@@ -5,6 +5,7 @@ import ScrobbleService from 'neon-extension-framework/services/destination/scrob
 import {MediaTypes} from 'neon-extension-framework/core/enums';
 
 import Client from '../../core/client';
+import Log from '../../core/logger';
 import Plugin from '../../core/plugin';
 
 
@@ -19,15 +20,15 @@ export class Scrobble extends ScrobbleService {
         let request = this._buildRequest(session.item);
 
         if(request === null) {
-            console.warn('Unable to build request for session:', session);
+            Log.warn('Unable to build request for session:', session);
             return;
         }
 
         // Update now playing status
         Client['track'].updateNowPlaying(request).then((response) => {
-            console.info('TODO: Handle "updateNowPlaying" response:', response);
+            Log.info('TODO: Handle "updateNowPlaying" response:', response);
         }, (body, statusCode) => {
-            console.info('TODO: Handle "updateNowPlaying" error, status code: %o, body: %O', statusCode, body);
+            Log.info('TODO: Handle "updateNowPlaying" error, status code: %o, body: %O', statusCode, body);
         });
     }
 
@@ -38,9 +39,9 @@ export class Scrobble extends ScrobbleService {
 
         // Scrobble track
         this._scrobble(session).then((response) => {
-            console.info('TODO: Handle "scrobble" response:', response);
+            Log.info('TODO: Handle "scrobble" response:', response);
         }, (body, statusCode) => {
-            console.info('TODO: Handle "scrobble" error, status code: %o, body: %O', statusCode, body);
+            Log.info('TODO: Handle "scrobble" error, status code: %o, body: %O', statusCode, body);
         });
     }
 
