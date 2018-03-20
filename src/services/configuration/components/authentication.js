@@ -1,8 +1,8 @@
 import IsNil from 'lodash-es/isNil';
 import React from 'react';
+import Runtime from 'wes/runtime';
 import Uuid from 'uuid';
 
-import Extension from 'neon-extension-browser/extension';
 import Registry from 'neon-extension-framework/core/registry';
 import {OptionComponent} from 'neon-extension-framework/services/configuration/components';
 
@@ -68,7 +68,7 @@ export default class AuthenticationComponent extends OptionComponent {
 
         // Open authorization page
         window.open(Client['auth'].getAuthorizeUrl({
-            callbackUrl: Extension.getCallbackUrl(
+            callbackUrl: Runtime.getURL(
                 '/destination/librefm/callback/callback.html?id=' + this.callbackId
             )
         }), '_blank');
