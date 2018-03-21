@@ -48,7 +48,7 @@ export default class AuthenticationComponent extends OptionComponent {
         // Retrieve account details
         Plugin.storage.getObject('account')
             .then((account) => {
-                if(account === null) {
+                if(IsNil(account)) {
                     return;
                 }
 
