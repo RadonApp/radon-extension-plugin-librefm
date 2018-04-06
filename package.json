@@ -1,6 +1,6 @@
 {
   "name": "neon-extension-destination-librefm",
-  "version": "1.8.0-beta.1",
+  "version": "1.8.0-beta.4",
   "description": "Neon Extension: Libre.fm",
   "keywords": [
     "neon",
@@ -42,7 +42,7 @@
   "peerDependencies": {
     "crypto-js": "^3.1.6",
     "lodash-es": "^4.16.1",
-    "neon-extension-framework": "^1.8.0-beta.1",
+    "neon-extension-framework": "^1.8.0-beta.4",
     "querystring": "^0.2.0",
     "uuid": "^2.0.3",
     "wes": "^1.0.0"
