@@ -18,9 +18,6 @@
     "type": "git",
     "url": "https://github.com/NeApp/neon-extension-destination-librefm"
   },
-  "scripts": {
-    "test": "echo No tests available yet."
-  },
   "dependencies": {
     "@fuzeman/librefm": "1.0.0-beta.1"
   },
@@ -46,5 +43,8 @@
     "querystring": "^0.2.0",
     "uuid": "^2.0.3",
     "wes": "^1.0.0"
+  },
+  "scripts": {
+    "test": "echo No tests available yet."
   }
 }
