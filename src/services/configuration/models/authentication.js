@@ -4,8 +4,8 @@ import {PluginOption} from 'neon-extension-framework/services/configuration/mode
 
 
 export default class AuthenticationOption extends PluginOption {
-    constructor(plugin, key, label, options) {
-        super(plugin, 'authentication', key, label, Merge({
+    constructor(plugin, key, options) {
+        super(plugin, 'authentication', key, Merge({
             componentId: 'services.configuration:authentication'
         }, options));
     }
