@@ -1,0 +1,23 @@
+{
+  "title": "$t(neon-extension-destination-librefm/common:title) Authentication - $t(neon-extension/common:title)",
+
+  "success": {
+    "title": "Authentication complete",
+    "description": "You may now close this page."
+  },
+
+  "error": {
+    "parameters": {
+      "title": "Invalid callback parameters",
+      "description": "No parameters were found."
+    },
+    "token": {
+      "title": "Invalid callback parameters",
+      "description": "No \"token\" parameter was found."
+    },
+    "timeout": {
+      "title": "Unable to communicate with the configuration page",
+      "description": "Please ensure you don't close the configuration page during the authentication process."
+    }
+  }
+}

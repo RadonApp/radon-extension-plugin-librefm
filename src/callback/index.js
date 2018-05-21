@@ -1,13 +1,10 @@
 import IsNil from 'lodash-es/isNil';
 import QueryString from 'querystring';
 
-import FrameworkPlugin from 'neon-extension-framework/core/plugin';
 import Plugin from 'neon-extension-destination-librefm/core/plugin';
 
 
 (function() {
-    let communicationTimeout;
-
     let $status = document.querySelector('.status');
     let $title = document.querySelector('.title');
     let $description = document.querySelector('.description');
@@ -34,71 +31,86 @@ import Plugin from 'neon-extension-destination-librefm/core/plugin';
         }
     }
 
-    function onSuccess() {
-        // Clear the communication timeout handler
-        if(!IsNil(communicationTimeout)) {
-            clearTimeout(communicationTimeout);
-        }
-
-        // Display completion message
-        updateStatus('success', {
-            'title': 'Authentication complete',
-            'description': 'You may now close this page.'
-        });
-    }
-
     function onError(error) {
         // Display error
         updateStatus('error', error);
     }
 
-    function onTimeout() {
-        onError({
-            title: 'Unable to communicate with the configuration page',
-            description: 'Please ensure you don\'t close the configuration page during the authentication process.'
-        });
-    }
+    Plugin.createI18n(['callback']).then((t) => {
+        let communicationTimeout;
 
-    function process() {
-        let messaging = Plugin.messaging.service('authentication');
+        function onSuccess() {
+            // Clear the communication timeout handler
+            if(!IsNil(communicationTimeout)) {
+                clearTimeout(communicationTimeout);
+            }
 
-        // Bind events
-        messaging.once('success', onSuccess);
-        messaging.once('error', onError);
-
-        // Ensure search parameters exist
-        if(window.location.search.length < 2) {
-            onError({
-                title: 'Invalid callback parameters',
-                description: 'No parameters were found.'
+            // Display completion message
+            updateStatus('success', {
+                'title': t('success.title'),
+                'description': t('success.description')
             });
-            return;
         }
 
-        // Decode query parameters
-        let query = QueryString.decode(
-            window.location.search.substring(1)
-        );
-
-        // Ensure token is defined
-        if(IsNil(query.token)) {
+        function onTimeout() {
             onError({
-                title: 'Invalid callback parameters',
-                description: 'No "token" parameter was found.'
+                title: t('error.timeout.title'),
+                description: t('error.timeout.description')
             });
-            return;
         }
 
-        // Emit authentication token
-        messaging.emit('callback', query);
+        function process() {
+            let messaging = Plugin.messaging.service('authentication');
 
-        // Display communication error if no response is returned in 5 seconds
-        communicationTimeout = setTimeout(onTimeout, 5000);
-    }
+            // Bind events
+            messaging.once('success', onSuccess);
+            messaging.once('error', onError);
 
-    // Update page title
-    document.title = `${Plugin.title} Authentication - ${FrameworkPlugin.title}`;
+            // Ensure search parameters exist
+            if(window.location.search.length < 2) {
+                onError({
+                    title: t('error.parameters.title'),
+                    description: t('error.parameters.description')
+                });
+                return;
+            }
 
-    // Process callback
-    process();
+            // Decode query parameters
+            let query = QueryString.decode(
+                window.location.search.substring(1)
+            );
+
+            // Ensure token is defined
+            if(IsNil(query.token)) {
+                onError({
+                    title: t('error.token.title'),
+                    description: t('error.token.description')
+                });
+                return;
+            }
+
+            // Emit authentication token
+            messaging.emit('callback', query);
+
+            // Display communication error if no response is returned in 5 seconds
+            communicationTimeout = setTimeout(onTimeout, 5000);
+        }
+
+        // Update page title
+        document.title = t('title');
+
+        // Process callback
+        process();
+    }, (err) => {
+        if(Array.isArray(err) && err.length > 0) {
+            err = err[0];
+        }
+
+        if(err.message) {
+            err = err.message;
+        }
+
+        // Display error on page
+        onError({ description: err });
+    });
 })();
