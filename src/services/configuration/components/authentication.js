@@ -4,6 +4,7 @@ import Runtime from 'wes/runtime';
 import Uuid from 'uuid';
 
 import Registry from 'neon-extension-framework/core/registry';
+import TranslationNamespace from 'neon-extension-framework/Components/Translation/Namespace';
 import {OptionComponent} from 'neon-extension-framework/services/configuration/components';
 
 import Account from '../../../core/account';
@@ -21,6 +22,9 @@ export default class AuthenticationComponent extends OptionComponent {
 
         // Initial state
         this.state = {
+            id: null,
+            namespaces: [],
+
             authenticated: false,
             subscribed: false,
             account: {}
@@ -45,6 +49,77 @@ export default class AuthenticationComponent extends OptionComponent {
             () => this.setState({ subscribed: false })
         );
 
+        // Fetch initial state
+        this.refresh(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.refresh(nextProps);
+    }
+
+    onLoginClicked(t) {
+        // Bind to callback event
+        this.messaging.once('callback', this.onCallback.bind(this, t));
+
+        // Generate callback id (to validate against received callback events)
+        this.callbackId = Uuid.v4();
+
+        // Open authorization page
+        window.open(Client['auth'].getAuthorizeUrl({
+            callbackUrl: Runtime.getURL(
+                '/destination/librefm/callback/callback.html?id=' + this.callbackId
+            )
+        }), '_blank');
+    }
+
+    onCallback(t, query) {
+        if(query.id !== this.callbackId) {
+            Log.warn('Unable to authenticate with Libre.fm: Invalid callback id');
+
+            // Emit error event
+            this.messaging.emit('error', {
+                'title': t(`${this.props.item.key}.error.id.title`),
+                'description': t(`${this.props.item.key}.error.id.description`)
+            });
+
+            return;
+        }
+
+        // Request session key
+        Client['auth'].getSession(query.token).then((session) => {
+            // Update client authorization
+            Client.session = session;
+
+            // Update authorization token
+            return Plugin.storage.putObject('session', session)
+                // Refresh account details
+                .then(() => this.refreshAccount())
+                .then(() => {
+                    // Emit success event
+                    this.messaging.emit('success');
+                });
+
+        }, (error) => {
+            Log.warn('Unable to authenticate with Libre.fm: %s', error.message);
+
+            // Emit error event
+            this.messaging.emit('error', {
+                'title': t(`${this.props.item.key}.error.request.title`),
+                'description': error.message
+            });
+        });
+    }
+
+    refresh(props) {
+        this.setState({
+            id: props.item.id,
+
+            namespaces: [
+                props.item.namespace,
+                props.item.plugin.namespace
+            ]
+        });
+
         // Retrieve account details
         Plugin.storage.getObject('account')
             .then((account) => {
@@ -59,60 +134,8 @@ export default class AuthenticationComponent extends OptionComponent {
             });
     }
 
-    onLoginClicked() {
-        // Bind to callback event
-        this.messaging.once('callback', this.onCallback.bind(this));
-
-        // Generate callback id (to validate against received callback events)
-        this.callbackId = Uuid.v4();
-
-        // Open authorization page
-        window.open(Client['auth'].getAuthorizeUrl({
-            callbackUrl: Runtime.getURL(
-                '/destination/librefm/callback/callback.html?id=' + this.callbackId
-            )
-        }), '_blank');
-    }
-
-    onCallback(query) {
-        if(query.id !== this.callbackId) {
-            Log.warn('Unable to authenticate with Libre.fm: Invalid callback id');
-
-            // Emit error event
-            this.messaging.emit('error', {
-                'title': 'Invalid callback id',
-                'description': 'Please ensure you only click the "Login" button once.'
-            });
-            return;
-        }
-
-        // Request session key
-        Client['auth'].getSession(query.token).then((session) => {
-            // Update client authorization
-            Client.session = session;
-
-            // Update authorization token
-            return Plugin.storage.putObject('session', session)
-                // Refresh account details
-                .then(() => this.refresh())
-                .then(() => {
-                    // Emit success event
-                    this.messaging.emit('success');
-                });
-
-        }, (error) => {
-            Log.warn('Unable to authenticate with Libre.fm: %s', error.message);
-
-            // Emit error event
-            this.messaging.emit('error', {
-                'title': 'Unable to request authentication session',
-                'description': error.message
-            });
-        });
-    }
-
-    refresh() {
-        // Ensure client has been initialized
+    refreshAccount() {
+        // Fetch account details
         return Account.refresh().then((account) => {
             // Update state
             this.setState({
@@ -151,51 +174,59 @@ export default class AuthenticationComponent extends OptionComponent {
             let account = this.state.account;
 
             return (
-                <div data-component={Plugin.id + ':authentication'} className="box active">
-                    <div className="shadow"></div>
+                <TranslationNamespace ns={this.state.namespaces}>
+                    {(t) => (
+                        <div data-component={Plugin.id + ':authentication'} className="box active">
+                            <div className="shadow"/>
 
-                    <div className="inner">
-                        <div className="avatar" style={{
-                            backgroundImage: 'url(' + account.image[account.image.length - 1]['#text'] + ')'
-                        }}/>
+                            <div className="inner">
+                                <div className="avatar" style={{
+                                    backgroundImage: 'url(' + account.image[account.image.length - 1]['#text'] + ')'
+                                }}/>
 
-                        <div className="content">
-                            <h3 className="title">{account.realname || account.name}</h3>
+                                <div className="content">
+                                    <h3 className="title">{account.realname || account.name}</h3>
 
-                            <div className="actions">
-                                <button
-                                    type="button"
-                                    className="button secondary small"
-                                    onClick={this.refresh.bind(this)}>
-                                    Refresh
-                                </button>
+                                    <div className="actions">
+                                        <button
+                                            type="button"
+                                            className="button secondary small"
+                                            onClick={this.refreshAccount.bind(this)}>
+                                            {t(`${this.props.item.key}.button.refresh`)}
+                                        </button>
 
-                                <button
-                                    type="button"
-                                    className="button secondary small"
-                                    onClick={this.logout.bind(this)}>
-                                    Logout
-                                </button>
+                                        <button
+                                            type="button"
+                                            className="button secondary small"
+                                            onClick={this.logout.bind(this)}>
+                                            {t(`${this.props.item.key}.button.logout`)}
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    )}
+                </TranslationNamespace>
             );
         }
 
         // Logged out
         return (
-            <div data-component={Plugin.id + ':authentication'} className="box login">
-                <div className="inner">
-                    <button
-                        type="button"
-                        className="button small"
-                        disabled={!this.state.subscribed}
-                        onClick={this.onLoginClicked.bind(this)}>
-                        Login
-                    </button>
-                </div>
-            </div>
+            <TranslationNamespace ns={this.state.namespaces}>
+                {(t) => (
+                    <div data-component={Plugin.id + ':authentication'} className="box login">
+                        <div className="inner">
+                            <button
+                                type="button"
+                                className="button small"
+                                disabled={!this.state.subscribed}
+                                onClick={this.onLoginClicked.bind(this, t)}>
+                                {t(`${this.props.item.key}.button.login`)}
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </TranslationNamespace>
         );
     }
 }

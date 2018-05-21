@@ -1,4 +1,22 @@
 {
+  "authorization": {
+    "button": {
+      "login": "Login",
+      "logout": "Logout",
+      "refresh": "Refresh"
+    },
+
+    "error": {
+      "id": {
+        "title": "Invalid callback id",
+        "description": "Please ensure you only click the \"Login\" button once."
+      },
+      "request": {
+        "title": "Unable to request session"
+      }
+    }
+  },
+
   "scrobble": {
     "title": "Scrobble"
   }
