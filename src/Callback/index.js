@@ -1,7 +1,7 @@
 import IsNil from 'lodash-es/isNil';
 import QueryString from 'querystring';
 
-import Plugin from 'neon-extension-destination-librefm/core/plugin';
+import Plugin from 'neon-extension-destination-librefm/Core/Plugin';
 
 
 (function() {

@@ -1,4 +1,4 @@
-import DestinationPlugin from 'neon-extension-framework/base/plugins/destination';
+import DestinationPlugin from 'neon-extension-framework/Models/Plugin/Destination';
 
 
 export class LibreFmPlugin extends DestinationPlugin {

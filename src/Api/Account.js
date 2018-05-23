@@ -1,5 +1,5 @@
-import Client from './client';
-import Plugin from './plugin';
+import Client from './Client';
+import Plugin from '../Core/Plugin';
 
 
 export default class Account {

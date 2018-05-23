@@ -1,6 +1,6 @@
 import {Client as LibreFM} from '@fuzeman/librefm/src/index';
 
-import Plugin from './plugin';
+import Plugin from '../Core/Plugin';
 
 
 const Client = new LibreFM(

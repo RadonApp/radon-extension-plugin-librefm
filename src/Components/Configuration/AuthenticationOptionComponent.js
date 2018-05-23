@@ -3,18 +3,18 @@ import React from 'react';
 import Runtime from 'wes/runtime';
 import Uuid from 'uuid';
 
-import Registry from 'neon-extension-framework/core/registry';
+import Registry from 'neon-extension-framework/Core/Registry';
 import TranslationNamespace from 'neon-extension-framework/Components/Translation/Namespace';
-import {OptionComponent} from 'neon-extension-framework/services/configuration/components';
+import {OptionComponent} from 'neon-extension-framework/Components/Configuration';
+import Account from 'neon-extension-destination-librefm/Api/Account';
+import Client from 'neon-extension-destination-librefm/Api/Client';
+import Log from 'neon-extension-destination-librefm/Core/Logger';
+import Plugin from 'neon-extension-destination-librefm/Core/Plugin';
 
-import Account from '../../../core/account';
-import Client from '../../../core/client';
-import Log from '../../../core/logger';
-import Plugin from '../../../core/plugin';
-import './authentication.scss';
+import './AuthenticationOptionComponent.scss';
 
 
-export default class AuthenticationComponent extends OptionComponent {
+export default class AuthenticationOptionComponent extends OptionComponent {
     constructor() {
         super();
 
@@ -231,7 +231,7 @@ export default class AuthenticationComponent extends OptionComponent {
     }
 }
 
-AuthenticationComponent.componentId = Plugin.id + ':services.configuration:authentication';
+AuthenticationOptionComponent.componentId = Plugin.id + ':services.configuration:authentication';
 
 // Register option component
-Registry.registerComponent(AuthenticationComponent);
+Registry.registerComponent(AuthenticationOptionComponent);

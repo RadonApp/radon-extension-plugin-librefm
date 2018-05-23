@@ -1,7 +1,7 @@
-import {Group, Page, EnableOption} from 'neon-extension-framework/services/configuration/models';
-
-import AuthenticationOption from './models/authentication';
-import Plugin from '../../core/plugin';
+import {Group, Page} from 'neon-extension-framework/Models/Configuration';
+import {EnableOption} from 'neon-extension-framework/Models/Configuration/Options';
+import Plugin from 'neon-extension-destination-librefm/Core/Plugin';
+import {AuthenticationOption} from 'neon-extension-destination-librefm/Models/Configuration';
 
 
 export default [

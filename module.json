@@ -18,8 +18,8 @@
     "babel": [
       "node_modules/@fuzeman/librefm/src"
     ],
-    "chunks": [
-      "callback"
-    ]
+    "modules": {
+      "Callback": true
+    }
   }
 }
