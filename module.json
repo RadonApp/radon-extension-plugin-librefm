@@ -10,7 +10,7 @@
     "Destination:Scrobble"
   ],
   "web_accessible_resources": [
-    "destination/librefm/callback/callback.html"
+    "Modules/neon-extension-destination-librefm/Callback.html"
   ],
 
   "webpack": {
