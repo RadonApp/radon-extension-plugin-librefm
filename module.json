@@ -6,9 +6,8 @@
   ],
 
   "services": [
-    "configuration",
-
-    "destination/scrobble"
+    "Configuration",
+    "Destination:Scrobble"
   ],
   "web_accessible_resources": [
     "destination/librefm/callback/callback.html"
