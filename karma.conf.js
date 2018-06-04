@@ -87,6 +87,7 @@ module.exports = function(config) {
                     {
                         test: /\.js$/,
                         include: [
+                            fs.realpathSync(path.resolve(__dirname, 'node_modules/@fuzeman/librefm/src')),
                             fs.realpathSync(path.resolve(__dirname, 'node_modules/neon-extension-framework')),
                             fs.realpathSync(path.resolve(__dirname, 'node_modules/lodash-es')),
                             fs.realpathSync(path.resolve(__dirname, 'node_modules/wes'))
