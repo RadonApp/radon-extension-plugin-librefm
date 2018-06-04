@@ -3,9 +3,10 @@ import IsNil from 'lodash-es/isNil';
 import Registry from 'neon-extension-framework/Core/Registry';
 import ScrobbleService from 'neon-extension-framework/Services/Destination/Scrobble';
 import {MediaTypes} from 'neon-extension-framework/Core/Enums';
-import Client from 'neon-extension-destination-librefm/Api/Client';
-import Log from 'neon-extension-destination-librefm/Core/Logger';
-import Plugin from 'neon-extension-destination-librefm/Core/Plugin';
+
+import Client from '../../Api/Client';
+import Log from '../../Core/Logger';
+import Plugin from '../../Core/Plugin';
 
 
 export class Scrobble extends ScrobbleService {

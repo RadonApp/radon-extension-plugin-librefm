@@ -1,7 +1,7 @@
 import ConfigurationService from 'neon-extension-framework/Services/Configuration';
 import Registry from 'neon-extension-framework/Core/Registry';
-import Plugin from 'neon-extension-destination-librefm/Core/Plugin';
 
+import Plugin from '../../Core/Plugin';
 import Options from './options';
 
 
