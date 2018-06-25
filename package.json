@@ -1,6 +1,6 @@
 {
   "name": "neon-extension-destination-librefm",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "Neon Extension: Libre.fm",
   "keywords": [
     "neon",
@@ -60,7 +60,7 @@
     "whatwg-fetch": "^2.0.4"
   },
   "peerDependencies": {
-    "neon-extension-framework": "2.0.0-beta.1"
+    "neon-extension-framework": "2.0.0-beta.2"
   },
   "scripts": {
     "lint": "eslint .",
