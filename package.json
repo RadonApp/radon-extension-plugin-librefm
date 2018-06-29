@@ -1,7 +1,7 @@
 {
   "name": "neon-extension-destination-librefm",
   "version": "2.0.0-beta.3",
-  "description": "Neon Extension: Libre.fm",
+  "description": "Radon Extension: Libre.fm",
   "keywords": [
     "neon",
     "neon-extension",
