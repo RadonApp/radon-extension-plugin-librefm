@@ -1,5 +1,5 @@
-import {Group, Page} from 'neon-extension-framework/Models/Configuration';
-import {EnableOption} from 'neon-extension-framework/Models/Configuration/Options';
+import {Group, Page} from '@radon-extension/framework/Models/Configuration';
+import {EnableOption} from '@radon-extension/framework/Models/Configuration/Options';
 
 import Plugin from '../../Core/Plugin';
 import {AuthenticationOption} from '../../Models/Configuration';

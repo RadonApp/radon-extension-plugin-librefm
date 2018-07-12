@@ -1,4 +1,4 @@
-import DestinationPlugin from 'neon-extension-framework/Models/Plugin/Destination';
+import DestinationPlugin from '@radon-extension/framework/Models/Plugin/Destination';
 
 
 export class LibreFmPlugin extends DestinationPlugin {

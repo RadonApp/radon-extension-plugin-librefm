@@ -3,9 +3,9 @@ import React from 'react';
 import Runtime from 'wes/runtime';
 import Uuid from 'uuid';
 
-import Registry from 'neon-extension-framework/Core/Registry';
-import TranslationNamespace from 'neon-extension-framework/Components/Translation/Namespace';
-import {OptionComponent} from 'neon-extension-framework/Components/Configuration';
+import Registry from '@radon-extension/framework/Core/Registry';
+import TranslationNamespace from '@radon-extension/framework/Components/Translation/Namespace';
+import {OptionComponent} from '@radon-extension/framework/Components/Configuration';
 
 import Account from '../../Api/Account';
 import Client from '../../Api/Client';

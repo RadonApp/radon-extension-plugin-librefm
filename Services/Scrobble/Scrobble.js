@@ -2,9 +2,9 @@ import Get from 'lodash-es/get';
 import IsNil from 'lodash-es/isNil';
 import OmitBy from 'lodash-es/omitBy';
 
-import Registry from 'neon-extension-framework/Core/Registry';
-import ScrobbleService from 'neon-extension-framework/Services/Destination/Scrobble';
-import {MediaTypes} from 'neon-extension-framework/Core/Enums';
+import Registry from '@radon-extension/framework/Core/Registry';
+import ScrobbleService from '@radon-extension/framework/Services/Destination/Scrobble';
+import {MediaTypes} from '@radon-extension/framework/Core/Enums';
 
 import Client from '../../Api/Client';
 import Log from '../../Core/Logger';
