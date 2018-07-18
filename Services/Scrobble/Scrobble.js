@@ -1,4 +1,6 @@
+import Get from 'lodash-es/get';
 import IsNil from 'lodash-es/isNil';
+import OmitBy from 'lodash-es/omitBy';
 
 import Registry from 'neon-extension-framework/Core/Registry';
 import ScrobbleService from 'neon-extension-framework/Services/Destination/Scrobble';
@@ -66,25 +68,32 @@ export class Scrobble extends ScrobbleService {
             return null;
         }
 
-        let request = {
-            artist: track.artist.title,
-            album: track.album.title,
-            track: track.title,
+        // Ensure duration is defined (to avoid invalid items)
+        if(IsNil(track.duration)) {
+            return null;
+        }
 
-            duration: track.duration / 1000
+        // Build request
+        let request = {
+            artist: Get(track, 'artist.title'),
+            track: Get(track, 'title'),
+
+            // Album (optional)
+            album: Get(track, 'album.title'),
+            albumArtist: Get(track, 'album.artist.title'),
+
+            // Additional details (optional)
+            duration: track.duration / 1000,
+            trackNumber: Get(track, 'number')
         };
 
-        // Track Number
-        if(!IsNil(track.number)) {
-            request.trackNumber = track.number;
+        // Remove "albumArtist" if it matches "artist"
+        if(request.albumArtist === request.artist) {
+            delete request.albumArtist;
         }
 
-        // Album Artist
-        if(!IsNil(track.album.artist.title) && track.album.artist.title !== track.artist.title) {
-            request.albumArtist = track.album.artist.title;
-        }
-
-        return request;
+        // Remove undefined properties
+        return OmitBy(request, IsNil);
     }
 
     // endregion
