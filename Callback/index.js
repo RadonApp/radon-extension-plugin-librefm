@@ -92,8 +92,8 @@ import Plugin from '../Core/Plugin';
             // Emit authentication token
             messaging.emit('callback', query);
 
-            // Display communication error if no response is returned in 5 seconds
-            communicationTimeout = setTimeout(onTimeout, 5000);
+            // Display communication error if no response is returned in 15 seconds
+            communicationTimeout = setTimeout(onTimeout, 15 * 1000);
         }
 
         // Update page title
