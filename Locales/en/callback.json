@@ -1,5 +1,5 @@
 {
-  "title": "$t(neon-extension-destination-librefm/common:title) Authentication - $t(neon-extension/common:title)",
+  "title": "$t(plugin-librefm/common:title) Authentication - $t(core/common:title)",
 
   "success": {
     "title": "Authentication complete",
